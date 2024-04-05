@@ -17,7 +17,7 @@ You may propose any additional functionality you consider interesting.
 
 # How I did it
 
-I used Vmware Fusion to build my server and client.
+I use Vmware Fusion to build my server and client.
 The server is an Ubuntu Server and the client is a Linux Mint.
 
 <br>
@@ -56,8 +56,8 @@ The server is an Ubuntu Server and the client is a Linux Mint.
 ## Client build
 
 I installed the latest stable version of Linux Mint via VMware Fusion. (iso)
-Once in the Mint VM I did some customization, I'll skip the details since it's not the main focus.
-Into bash we will update/upgrade apt package manager and set a root password and test it
+In the Mint VM I did some customization, I'll skip the details since it's not the main focus.
+In bash we will update/upgrade apt package manager and set a root password and test it:
 
 ```bash
    sudo apt update
@@ -66,7 +66,7 @@ Into bash we will update/upgrade apt package manager and set a root password and
    su root
 ```
 
-I also had to install GIMP (LibreOffice already on Mint)
+I also had to install GIMP (LibreOffice is already on Mint)
 
 ```bash
     sudo apt install gimp
@@ -88,14 +88,14 @@ We can use ssh to the client in case of need of remote assistant or use a remote
 ## Server build
 
 Install the Ubuntu Server with the latest stable iso version.
-Once in the server same as the clien, update/upgrade apt and access root user.
+Once in the server same as the client: update/upgrade apt and access root user.
 
 <br>
 <br>
 
 # DNS
 
-I the started with the DNS server using BIND9.
+Then I started with the DNS server using BIND9.
 
 ```bash
    sudo apt install bind9
@@ -106,7 +106,9 @@ Need to do some little configuration:
 ```bash
     sudo nano /etc/bind/named.conf.options
 ```
+
 and into the file add the two forwarders:
+
 ```bash
     forwarders {
         8.8.8.8; - Google DNS
@@ -193,18 +195,18 @@ We can check the list of attributed addresses with:
 
 # HTTP
 
-To build the HTTP and GLPI I followed the tutorial on the GLPI official website By just replacing with our correct credentials and skipping the undesired parts.:
+To build the HTTP and GLPI I followed the tutorial on the GLPI official website by just replacing with our correct credentials and skipping the undesired parts:
 https://faq.teclib.com/03_knowledgebase/procedures/install_glpi/
 
 <br>
 
-What give us this when done with it:
+What give us this:
 
 ![alt text](assets/glpi.png)
 
 <br>
 
-I also set up a Firewall basic settings:
+I also set up a Firewall basic setting:
 
 ```bash
     sudo ufw allow 22,80,443,53
@@ -222,7 +224,7 @@ I added a html template I found online to replace the default apache index for f
 
 # Backup
 
-For the backup we're gonna use a bash script that create a directory based on the daily date, copy all the important config file in it and make a tar archive of it. ( do it as sudo 🙏 )
+For the backup we're gonna use a bash script that create a directory based on the daily date, copy all the important config file in it and make a tar archive of it. (do it as sudo 🙏)
 
 ```bash
     cd && mkdir scripts && cd scripts && touch conf_backup.sh && vim conf_backup.sh
@@ -237,13 +239,14 @@ Into the file:
     sudo rm -rf /tmp/$(date +%d-%b-%Y)
 ```
 
-Now we are gonna do a cron to execute it:
+Now we do a cron to execute it:
 
 ```bash
     sudo crontab -u root -e
 ```
 
 I'll do my cron at 1am on each saturday:
+
 ```bash
     00 01 * * 6 /root/scripts/conf_backup.sh
 ```
@@ -255,6 +258,6 @@ I first did a test to see if it's working:
 <br>
 <br>
 
-And here we are that's bassicaly how I did my Client/Server.
+And here we are, that's bassicaly how I did my Client/Server project.
 
 🤠🤠🤠
